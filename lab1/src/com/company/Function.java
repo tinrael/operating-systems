@@ -18,4 +18,8 @@ public abstract class Function implements Runnable {
     public void run() {
         compute();
     }
+
+    public int getX() {
+        return x;
+    }
 }
