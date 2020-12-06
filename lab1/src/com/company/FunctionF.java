@@ -1,5 +1,7 @@
 package com.company;
 
+import spos.lab1.demo.IntOps;
+
 import java.nio.channels.Pipe;
 
 public class FunctionF extends Function {
@@ -9,7 +11,7 @@ public class FunctionF extends Function {
     }
 
     @Override
-    public void compute() {
-        
+    public int compute() throws InterruptedException {
+        return IntOps.funcF(getX());
     }
 }
