@@ -8,10 +8,12 @@ public abstract class Function implements Runnable {
     Pipe.SinkChannel sinkChannel;
 
     private final int x;
+    private final boolean isTrialFunction;
 
-    public Function(Pipe.SinkChannel sinkChannel, int x) {
+    public Function(Pipe.SinkChannel sinkChannel, int x, boolean isTrialFunction) {
         this.sinkChannel = sinkChannel;
         this.x = x;
+        this.isTrialFunction = isTrialFunction;
     }
 
     public abstract int compute() throws InterruptedException;
@@ -37,5 +39,9 @@ public abstract class Function implements Runnable {
 
     public int getX() {
         return x;
+    }
+
+    public boolean isTrialFunction() {
+        return isTrialFunction;
     }
 }
