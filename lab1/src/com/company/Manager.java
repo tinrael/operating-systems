@@ -6,16 +6,18 @@ import java.nio.channels.Pipe;
 
 public class Manager {
     private final int x;
+    private final boolean useTrialFunctions;
 
     private Pipe pipeF;
     private Pipe pipeG;
 
-    public Manager(int x) throws IOException {
+    public Manager(int x, boolean useTrialFunctions) throws IOException {
         if (x > 6 || x < 1) {
             System.out.println("[Manager]: Incorrect value of 'x'.");
             System.exit(0);
         }
-        this.x = x - 1;
+        this.x = x;
+        this.useTrialFunctions = useTrialFunctions;
 
         pipeF = Pipe.open();
         pipeF.source().configureBlocking(false);
@@ -36,8 +38,8 @@ public class Manager {
         Thread keyConsoleListenerThread = new Thread(new KeyConsoleListener());
         keyConsoleListenerThread.start();
 
-        (new Thread(new FunctionF(pipeF.sink(), x))).start();
-        (new Thread(new FunctionG(pipeG.sink(), x))).start();
+        (new Thread(new FunctionF(pipeF.sink(), x - 1, useTrialFunctions))).start();
+        (new Thread(new FunctionG(pipeG.sink(), x - 1, useTrialFunctions))).start();
 
         int resultF = 0;
         boolean isFComputed = false;
